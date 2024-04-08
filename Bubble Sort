@@ -1,0 +1,40 @@
+
+冒泡的原理如下：
+1. 比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+2. 对每一对相邻元素做同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。
+3. 针对所有的元素重复以上的步骤，除了最后一个。
+4. 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+
+
+/// @function                     scr_bubble_sort(_array, _way=1, _way_parameter=0)
+/// @param {real} _array          数组参数
+/// @param {real} _way            方案代号
+/// @param {real} _way_parameter  方案参数
+/// @description                  冒泡排序,最大值,最小值,中值,
+
+
+
+function scr_bubble_sort(_array, _way=1, _way_parameter=0)
+{
+	switch(_way)
+	{
+		
+		case 1:
+		break;
+		
+		case 2:
+		break;
+		
+		case 3:
+		break;
+		
+	}
+}
+
+
+
+
+
+
+
+

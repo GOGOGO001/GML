@@ -1,0 +1,19 @@
+/// @function                     scr_alarm(_time, _max=60, _add=1, _reset=0)
+/// @param {real} _time           计数变量
+/// @param {real} _max            计数阈值
+/// @param {real} _add            计数增量
+/// @param {real} _add            计数重置值
+/// @description                  计数器, ......
+
+
+function scr_alarm(_time, _max=60, _add=1, _reset=0)
+{
+	if(_time>=_max)
+	{
+		_time = 0;
+	}else
+	{
+		_time += _add;
+	}
+	return _time;
+}

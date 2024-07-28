@@ -1,0 +1,71 @@
+
+
+
+
+// 插值函数
+function value_fade( _t) 
+{
+	  // 公式: 
+	  var _i = _t * _t * _t * (_t * (_t * 6 - 15) + 10);
+    return _i;
+}
+
+// 顶点值和节点值进行点积
+function value_lerp( _t,  _a,  _b) 
+{
+	  // 两侧权重计算
+	  var _sum1 =_a*(1-_t);
+	  var _sum2 =_b*(_t);
+	  // 求和
+	  var _i = ( _sum1 + _sum2); 
+    return _i;
+}
+
+// 顶点值和节点值进行点乘
+function value_dot(_hash, _size, _x,  _y) 
+{
+	  var _vx = _size*cos((_hash%360)*pi/180);
+    var _vy = _size*sin((_hash%360)*pi/180);
+    return (_x * _vx) + (_y * _vy);  
+}
+
+// 二维柏林噪声函数
+function scr_value_noise(_x, _y, _w, _h, _array, _size = 1)
+{
+	  // 区块坐标
+	  var _bx = floor(_x / _w);
+    var _by = floor(_y / _h);
+	  // 节点坐标
+	  var _qx = _x % _w;
+    var _qy = _y % _h;
+    // 晶格的偏移值, 用于计算权重
+    var _xf = _qx / _w;
+    var _yf = _qy / _h;
+
+    // 通过缓和曲线计算权重
+    var _u = value_fade(_xf);
+    var _v = value_fade(_yf);
+	
+	
+    // 根据周围的整数坐标计算哈希值
+	  var _h1 = _array[_bx][_by];      // 00角哈希
+    var _h2 = _array[_bx+1][_by];    // 10角哈希
+    var _h3 = _array[_bx][_by+1];    // 01角哈希
+    var _h4 = _array[_bx+1][_by+1];  // 11角哈希
+	 
+	
+    // 点乘计算四角噪声点
+	  var _p1 = value_dot(_h1, _size, _xf,   _yf);
+	  var _p2 = value_dot(_h2, _size, _xf-1, _yf);
+	  var _p3 = value_dot(_h3, _size, _xf,   _yf-1);
+	  var _p4 = value_dot(_h4, _size, _xf-1, _yf-1);
+	
+	  // x方向两个权重
+	  var _n1 = value_lerp(_u, _p1, _p2);
+	  var _n2 = value_lerp(_u, _p3, _p4);
+	
+	  // y 方向的权重
+	  var _vv = value_lerp(_v, _n1, _n2);
+	
+    return _vv;
+}

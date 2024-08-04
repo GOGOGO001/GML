@@ -1,0 +1,42 @@
+
+// [360, 100, 100] --> [255, 255, 255]
+
+function scr_hsv_to_rgb(_h, _s, _v)
+{
+	_s = _s /100;
+	_v = _v /100;
+    if (_v == 0)
+	{
+        return [_v, _v, _v];
+	}
+	
+    var _h60 = (_h / 60);           // 找到对应的六边形区域
+    var _h60f = floor(_h / 60); 
+	var _hi = int64(_h60f)%6;
+    var _f = _h60 - _h60f;         // 计算六边形区域内距离中心的角度
+    var _p = 255* _v * (1 - _s)           // 计算六边形区域的边界值
+    var _q = 255* _v * (1 - _s * _f)       // 计算六边形区域的中心值
+    var _t = 255* _v * (1 - _s * (1 - _f)) // 计算六边形区域的另一个中心值
+	_v = 255*_v;
+	switch(_hi)
+	{
+	    case 0:  return [_v, _t, _p]; //break;
+	    case 1:  return [_q, _v, _p]; //break;
+	    case 2:  return [_p, _v, _t]; //break;
+	    case 3:  return [_p, _q, _v]; //break;
+	    case 4:  return [_t, _p, _v]; //break;
+	    case 5:  return [_v, _p, _q]; //break;
+	}
+    return [_v, _p, _q]
+	
+	/*
+	// 应用例子
+	var _a = scr_hsv_to_rgb(100, 100, 100);
+
+	//_a = [85, 255, 0];
+	var _col1 = make_color_rgb(_a[0], _a[1], _a[2]);
+
+	draw_circle_color(x, y-10, 10, _col1, _col1, 0);
+	draw_text(x, y-20, string(_a));
+	*/
+}
